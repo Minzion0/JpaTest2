@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
+import java.util.List;
+
 
 @Entity
 @Table(name = "product")
@@ -18,6 +20,7 @@ public class ProductEntity extends BaseEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "product_number",updatable = false,nullable = false,columnDefinition = "BIGINT UNSIGNED")
     private Long number;
 
     @Column(nullable = false,length = 10)
@@ -29,7 +32,13 @@ public class ProductEntity extends BaseEntity{
     @Column(nullable = false)
     private Integer stock;
 
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "provider_id")
+    @ToString.Exclude
+    private ProviderEntity providerEntity;
 
+    @OneToOne(mappedBy = "productEntity")//mappedBy 덕분에 컬럼이 안생기고 서로 연결상태이다
+    private ProductDetailEntity productDetailEntity;
 
 
 }

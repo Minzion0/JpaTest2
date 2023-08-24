@@ -1,6 +1,7 @@
 package com.green.jap1.product;
 
 import com.green.jap1.entity.ProductEntity;
+import com.green.jap1.product.model.ProductRegDto;
 import com.green.jap1.product.model.ProductUpDto;
 import com.green.jap1.product.model.ProductVo;
 import lombok.RequiredArgsConstructor;
@@ -13,6 +14,12 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ProductController {
     private final ProductService service;
+
+    @PostMapping
+    public ProductVo postProduct(@RequestBody ProductRegDto dto){
+        return service.insProduct(dto);
+    }
+
 
     @GetMapping
     public List<ProductVo>getProductAll(@RequestParam(required = false) String name){
